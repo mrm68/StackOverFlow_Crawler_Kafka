@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# Application-specific
+last_seen_id_*.txt
+tree.txt
+
+# Environment
+.env
+venv/

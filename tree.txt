@@ -1,9 +1,0 @@
-.
-├── display.py
-├── main.py
-├── models.py
-├── scraper.py
-├── tree.txt
-└── watcher.py
-
-1 directory, 6 files
