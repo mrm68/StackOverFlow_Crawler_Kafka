@@ -1,6 +1,3 @@
-Here’s the updated `README.md` file with the **Pydantic improvements** and the **comparison table** added to the **Dependencies and Workflow** section. This will help users understand the benefits of using Pydantic in the project.
-
----
 
  **StackOverflow Crawler with Kafka**
 
@@ -200,5 +197,3 @@ id
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
-
-This updated `README.md` now includes a clear explanation of the improvements brought by Pydantic, along with a comparison table and an example of Pydantic validation in action. This will help users understand the benefits of using Pydantic in the project. Let me know if you need further adjustments!
