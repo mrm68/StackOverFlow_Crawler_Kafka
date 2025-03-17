@@ -9,17 +9,13 @@ from display import QuestionDisplay
 
 
 class QuestionWatcher:
-    """Service to monitor for new StackOverflow questions"""
+    """Service to monitor for new StackOverflow questions."""
 
     def __init__(self, language: str, check_interval: int = 60):
         self.language = language
         self.check_interval = check_interval
-        self.scraper = StackOverflowScraper(
-            language=language, max_questions=500)
+        self.scraper = StackOverflowScraper(language=language, max_questions=500)
         self.last_seen_id = self._load_last_seen_id()
-
-    def _get_storage_path(self) -> Path:
-        return Path(f"last_seen_id_{self.language}.txt")
 
     def _load_last_seen_id(self) -> int:
         path = self._get_storage_path()
@@ -46,11 +42,15 @@ class QuestionWatcher:
         with open(self._get_storage_path(), 'w') as f:
             f.write(str(last_id))
 
+    def _get_storage_path(self):
+        return Path(f"last_seen_id_{self.language}.txt")
+
     def start_watching(self):
-        """Start the monitoring service"""
+        """Start the monitoring service."""
         print(
-            f"🚀 Starting watcher for '{self.language}'."
-            f" Checking every {self.check_interval} seconds.")
+            f"🚀 Starting watcher for '{self.language}'. "
+            f"Checking every {self.check_interval} seconds."
+        )
         print("Press Ctrl+C to stop...")
         try:
             while True:
@@ -60,7 +60,7 @@ class QuestionWatcher:
             print("\n🛑 Watcher stopped.")
 
     def check_new_questions(self):
-        """Check for new questions and notify"""
+        """Check for new questions and notify."""
         def stop_condition(q): return q.id <= self.last_seen_id
         questions = self.scraper.get_questions(stop_condition=stop_condition)
         new_questions = [q for q in questions if q.id > self.last_seen_id]
@@ -74,6 +74,6 @@ class QuestionWatcher:
             QuestionDisplay.display(new_questions_sorted)
         else:
             print(
-                f"⏳ No new questions found. Last check:"
-                f" {time.strftime('%Y-%m-%d %H:%M:%S')}"
+                f"⏳ No new questions found. Last check: "
+                f"{time.strftime('%Y-%m-%d %H:%M:%S')}"
             )

@@ -13,3 +13,6 @@ tree.txt
 # Environment
 .env
 venv/
+
+# Editor Config
+.flake8
