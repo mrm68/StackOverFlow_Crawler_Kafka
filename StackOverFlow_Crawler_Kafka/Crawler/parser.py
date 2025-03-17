@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup, Tag
 from models import Question
 
 
-class QuestionParser(ParserInterface):
+class QuestionParser_Template_Method(ParserInterface):
     """
     Template Method Pattern Implementation
 

@@ -6,7 +6,7 @@ from typing import Callable, Iterable, Optional
 from models import Question
 
 
-class QuestionStream(StreamInterface):
+class QuestionStream_Iterator(StreamInterface):
     """
     Iterator Pattern Implementation
 

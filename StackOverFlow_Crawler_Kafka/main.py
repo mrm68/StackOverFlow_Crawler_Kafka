@@ -1,6 +1,6 @@
 # main.py
 
-from Crawler.watcher import QuestionWatcher
+from Crawler.watcher import QuestionWatcher_Observer as QuestionWatcher
 
 
 def main():

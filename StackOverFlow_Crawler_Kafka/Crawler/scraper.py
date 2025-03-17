@@ -1,13 +1,13 @@
 # scraper.py
 
 from .interfaces import ScraperInterface
-from .fetcher import Fetcher
-from .parser import QuestionParser
+from .fetcher import Fetcher_Strategy as Fetcher
+from .parser import QuestionParser_Template_Method as QuestionParser
 from models import Question
 from typing import Callable, Optional, List
 
 
-class StackOverflowScraper(ScraperInterface):
+class StackOverflowScraper_Facade(ScraperInterface):
     """
     Facade Pattern Implementation
 

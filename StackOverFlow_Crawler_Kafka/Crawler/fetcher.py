@@ -7,7 +7,7 @@ from requests.exceptions import RequestException
 import time
 
 
-class Fetcher(FetcherInterface):
+class Fetcher_Strategy(FetcherInterface):
     """
     Strategy Pattern Implementation
 

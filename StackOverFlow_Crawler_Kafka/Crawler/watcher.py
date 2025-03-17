@@ -3,11 +3,11 @@
 from .interfaces import WatcherInterface
 import time
 from pathlib import Path
-from .scraper import StackOverflowScraper
+from .scraper import StackOverflowScraper_Facade as StackOverflowScraper
 from .display import QuestionDisplay
 
 
-class QuestionWatcher(WatcherInterface):
+class QuestionWatcher_Observer(WatcherInterface):
     """
     Observer Pattern Implementation
 

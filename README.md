@@ -131,7 +131,129 @@ main.py
 
 5. **Kafka Integration**:
    - The `kafka` directory contains `producer.py` and `consumer.py` for sending and receiving messages via Kafka.
+---
+Here's a detailed flowchart of the code's execution process with component interactions:
 
+```
+[Start Docker Container]
+│
+├──> 1. Docker Setup
+│      │
+│      ├── Installs Python 3.9
+│      ├── Copies requirements.txt
+│      └── Runs pip install
+│
+├──> 2. Run main.py
+│      │
+│      ├──> User Input Phase
+│      │      │
+│      │      ├── Ask for language (e.g., "python")
+│      │      └── Ask for check interval (default 60s)
+│      │
+│      └──> Initialize QuestionWatcher
+│             │
+│             └──> Creates StackOverflowScraper
+│                    │
+│                    ├──> Creates Fetcher (Strategy Pattern)
+│                    └──> Creates QuestionParser (Template Method)
+│
+├──> 3. Watcher Start
+│      │
+│      ├──> check_new_questions() [First Run]
+│      │      │
+│      │      ├──> scraper.get_questions()
+│      │      │      │
+│      │      │      ├──> fetcher.fetch(page 1)
+│      │      │      │      │
+│      │      │      │      ├── Try 3 times
+│      │      │      │      └── Return HTML or None
+│      │      │      │
+│      │      │      └──> parser.parse(HTML)
+│      │      │             │
+│      │      │             ├── Extract title
+│      │      │             ├── Extract votes
+│      │      │             ├── Extract answers
+│      │      │             └── Create Question objects
+│      │      │
+│      │      └──> Compare IDs with last_seen_id
+│      │
+│      └──> Continuous Loop
+│             │
+│             ├── Sleep for check_interval
+│             └── Repeat check_new_questions()
+│
+├──> 4. Display Flow (When New Questions Found)
+│      │
+│      ├──> QuestionDisplay.display()
+│      │      │
+│      │      ├── Clean excerpt text
+│      │      ├── Format with emojis
+│      │      └── Print to console
+│      │
+│      └──> Update last_seen_id file
+│
+├──> 5. Error Handling
+│      │
+│      ├── Fetch errors → 3 retries
+│      ├── Parse errors → Skip question
+│      └── KeyboardInterrupt → Graceful exit
+│
+└──> [Loop Until CTRL+C]
+       │
+       └──> Watcher keeps checking every N seconds
+              │
+              ├── New questions → Show notification
+              └── No changes → Show status message
+```
+
+# **Key Process Relationships:**
+
+1. **Watcher (Observer) Controls Flow**
+   - Initializes Scraper (Facade)
+   - Calls: scraper.get_questions() → parser.parse() → fetcher.fetch()
+
+2. **Scraper Orchestration**
+   - 1 scraper → 1 fetcher + 1 parser
+   - Handles pagination automatically
+
+3. **Data Transformation Chain**
+   HTML → BeautifulSoup → Question objects → Formatted display
+
+4. **State Management**
+   - last_seen_id file persists between runs
+   - Auto-saves after each check
+
+ Critical Path Example:
+
+User Input "python" → Watcher Initialized → First Scrape → Display Results → Sleep 60s → Repeat...
+
+ Design Pattern Execution Flow:
+
+1. **Strategy Pattern (Fetcher)**
+   - Scraper → Fetcher.fetch()
+   - Can swap HTTP libraries without changing core logic
+
+2. **Template Method (Parser)**
+   - parse() → _parse_question() → _extract_title()/_extract_votes()
+   - Fixed process with customizable steps
+
+3. **Facade Pattern (Scraper)**
+   - Simple get_questions() hides:
+     - Pagination
+     - HTML fetching
+     - Data parsing
+
+4. **Observer Pattern (Watcher)**
+   - Continuous monitoring loop
+   - State comparison (new vs old IDs)
+
+ Overload Protection:
+
+1. Fetcher: 3 retries per page
+2. Scraper: Max 100 pages
+3. Watcher: Fixed check intervals
+
+This flowchart shows how the patterns work together to create a maintainable monitoring system while handling real-world web scraping challenges!
 ---
 
  **Pydantic Improvements**
