@@ -1,3 +1,5 @@
+# models.py
+
 from pydantic import BaseModel
 from typing import List
 
@@ -10,3 +12,6 @@ class Question(BaseModel):
     excerpt: str
     tags: List[str]
     timestamp: str
+    votes: int
+    answers: int
+    views: int
