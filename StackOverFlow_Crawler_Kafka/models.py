@@ -1,12 +1,9 @@
-# models.py
-
-from dataclasses import dataclass
+from pydantic import BaseModel
 from typing import List
 
 
-@dataclass
-class Question:
-    """Data class to represent a StackOverflow question"""
+class Question(BaseModel):
+    """Pydantic model to represent a StackOverflow question"""
     id: int
     title: str
     link: str

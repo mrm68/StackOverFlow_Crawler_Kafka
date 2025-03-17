@@ -1,10 +1,8 @@
-# scraper.py
-
 import requests
 from typing import Callable, Optional, List
 from requests.exceptions import RequestException
 from bs4 import BeautifulSoup
-from models import Question
+from models import Question  # Updated to use Pydantic
 import time
 
 
@@ -49,14 +47,16 @@ class StackOverflowScraper:
 
         for question in soup.select(".s-post-summary"):
             link = self._extract_link(question)
-            questions.append(Question(
-                id=self._extract_id(link),
-                title=self._extract_title(question),
-                link=link,
-                excerpt=self._extract_excerpt(question),
-                tags=self._extract_tags(question),
-                timestamp=self._extract_timestamp(question)
-            ))
+            question_data = {
+                "id": self._extract_id(link),
+                "title": self._extract_title(question),
+                "link": link,
+                "excerpt": self._extract_excerpt(question),
+                "tags": self._extract_tags(question),
+                "timestamp": self._extract_timestamp(question)
+            }
+            # Create a Pydantic Question object
+            questions.append(Question(**question_data))
 
         return questions
 
