@@ -132,7 +132,6 @@ main.py
 5. **Kafka Integration**:
    - The `kafka` directory contains `producer.py` and `consumer.py` for sending and receiving messages via Kafka.
 ---
-Here's a detailed flowchart of the code's execution process with component interactions:
 
 ```
 [Start Docker Container]
@@ -253,7 +252,6 @@ User Input "python" → Watcher Initialized → First Scrape → Display Results
 2. Scraper: Max 100 pages
 3. Watcher: Fixed check intervals
 
-This flowchart shows how the patterns work together to create a maintainable monitoring system while handling real-world web scraping challenges!
 ---
 
  **Pydantic Improvements**
