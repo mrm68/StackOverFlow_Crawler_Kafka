@@ -1,9 +1,7 @@
 # watcher.py
 
 import time
-from typing import List, Callable, Optional
 from pathlib import Path
-from models import Question
 from scraper import StackOverflowScraper
 from display import QuestionDisplay
 

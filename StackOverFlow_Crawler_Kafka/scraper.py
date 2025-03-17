@@ -1,12 +1,10 @@
 # scraper.py
-from typing import Callable, Optional, List
+from typing import Callable, Iterable, Optional, List
 import requests
-from typing import Callable, Optional, Iterable
 from requests.exceptions import RequestException
 from bs4 import BeautifulSoup, Tag
 from models import Question
 import time
-from functools import partial
 from itertools import islice, takewhile, count
 
 
