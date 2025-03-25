@@ -1,19 +1,20 @@
-# Dockerfile
-
-# Use an official Python runtime as the base image
 FROM python:3.9-slim
 
-# Set the working directory in the container
+# Install system dependencies for graphviz
+RUN apt-get update && apt-get install -y \    
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
-# Copy the requirements file into the container
+# Copy requirements first for caching
 COPY StackOverFlow_Crawler_Kafka/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt code2flow
 
-# Install the dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the application code
+# Copy all source code
 COPY StackOverFlow_Crawler_Kafka/ .
 
-# Set the command to run the application
-CMD ["python", "main.py"]
+# Add diagram generation script
+COPY generate_diagrams.sh .
+RUN chmod +x generate_diagrams.sh
+
+CMD ["sh", "-c", "./generate_diagrams.sh && python main.py"]
