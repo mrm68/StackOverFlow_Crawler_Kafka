@@ -80,6 +80,16 @@ Feature: Watcher Interface
 
 
 class WatcherInterface(ABC):
+    """
+    Observer Pattern Implementation
+
+    Responsibilities:
+    - Monitor for new questions
+    - Maintain state between checks
+    - Coordinate scraping and display
+
+    Implements: WatcherInterface
+    """
     @abstractmethod
     def start_watching(self):
         """Initiate continuous monitoring process"""
