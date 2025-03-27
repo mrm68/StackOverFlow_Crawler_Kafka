@@ -14,20 +14,18 @@ subgraph legend{
         <tr><td>Function call</td><td><font color='black'>&#8594;</font></td></tr>
         </table></td></tr></table>
         >];
-}node_43393076 [label="89: _process_new_questions()" name="watcher::QuestionWatcher._process_new_questions" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
-node_d7f3e110 [label="97: _save_last_seen_id()" name="watcher::QuestionWatcher._save_last_seen_id" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
-node_b6bb74ee [label="58: check_new_questions()" name="watcher::QuestionWatcher.check_new_questions" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
-node_6f7ed085 [label="47: start_watching()" name="watcher::QuestionWatcher.start_watching" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
-node_43393076 -> node_d7f3e110 [color="#D55E00" penwidth="2"];
-node_b6bb74ee -> node_43393076 [color="#D55E00" penwidth="2"];
-node_6f7ed085 -> node_b6bb74ee [color="#0072B2" penwidth="2"];
-subgraph cluster_a984b3d3 {
+}node_ac5dc15f [label="81: _save_last_seen_id()" name="watcher::QuestionWatcher._save_last_seen_id" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_2009efdd [label="62: check_new_questions()" name="watcher::QuestionWatcher.check_new_questions" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_617aab45 [label="51: start_watching()" name="watcher::QuestionWatcher.start_watching" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_2009efdd -> node_ac5dc15f [color="#0072B2" penwidth="2"];
+node_617aab45 -> node_2009efdd [color="#0072B2" penwidth="2"];
+subgraph cluster_b5df8dec {
     label="File: watcher";
     name="watcher";
     style="filled";
     graph[style=dotted];
-    subgraph cluster_f802a151 {
-        node_6f7ed085 node_b6bb74ee node_43393076 node_d7f3e110;
+    subgraph cluster_78c78f59 {
+        node_617aab45 node_2009efdd node_ac5dc15f;
         label="Class: QuestionWatcher";
         name="QuestionWatcher";
         style="filled";

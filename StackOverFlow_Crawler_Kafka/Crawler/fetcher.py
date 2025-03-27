@@ -1,5 +1,3 @@
-# fetcher.py
-
 from .interfaces import FetcherInterface
 import requests
 from typing import Optional
@@ -18,12 +16,13 @@ class Fetcher_Strategy(FetcherInterface):
             try:
                 response = requests.get(
                     self.url_builder(page),
-                    headers=self.headers
+                    headers=self.headers,
+                    timeout=10
                 )
                 response.raise_for_status()
                 return response.text
             except requests.RequestException as e:
-                if attempt + 1 == self.retries:
-                    raise RuntimeError(f"Failed to fetch page {page}: {e}")
+                if attempt == self.retries - 1:
+                    raise RuntimeError(f"Failed after {self.retries} attempts: {e}")
                 time.sleep(self.delay)
         return None

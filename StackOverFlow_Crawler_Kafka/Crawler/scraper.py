@@ -1,5 +1,3 @@
-# scraper.py
-
 from .interfaces import ScraperInterface
 from models import Question
 from typing import List, Optional, Callable
@@ -22,17 +20,17 @@ class StackOverflowScraper_Facade(ScraperInterface):
             if not html:
                 break
 
-            new_questions = self.parser.parse(html)
-            if not new_questions:
+            page_questions = self.parser.parse(html)
+            if not page_questions:
                 break
 
             if stop_condition:
-                filtered_questions = [q for q in new_questions if not stop_condition(q)]
-                questions.extend(filtered_questions)
-                if len(filtered_questions) < len(new_questions):
+                filtered = [q for q in page_questions if not stop_condition(q)]
+                questions.extend(filtered)
+                if len(filtered) < len(page_questions):
                     break
             else:
-                questions.extend(new_questions)
+                questions.extend(page_questions)
 
             page += 1
 

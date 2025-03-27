@@ -16,3 +16,7 @@ venv/
 
 # Editor Config
 .flake8
+
+# diagrams
+diagrams
+diagrams/
