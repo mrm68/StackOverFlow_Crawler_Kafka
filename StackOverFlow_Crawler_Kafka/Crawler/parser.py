@@ -7,65 +7,39 @@ from models import Question
 
 
 class QuestionParser_Template_Method(ParserInterface):
-    """
-    Template Method Pattern Implementation
-
-    Responsibilities:
-    - Define parsing algorithm skeleton
-    - Handle element extraction details
-    - Convert raw HTML to domain objects
-
-    Implements: ParserInterface
-    """
-
     def __init__(self, base_url):
         self.base_url = base_url
 
     def parse(self, html: str) -> List[Question]:
-        """Main parsing entry point"""
+        """Convert HTML into a list of Question objects."""
         soup = BeautifulSoup(html, "html.parser")
         return [self._parse_question(q) for q in soup.select(".s-post-summary")]
 
     def _parse_question(self, question_element: Tag) -> Question:
-        """Template method implementation"""
+        """Extract question details."""
         link = self._build_link(
             question_element.select_one(".s-post-summary--content-title a")["href"]
         )
-        votes = self._extract_votes(question_element)
-        answers = self._extract_answers(question_element)
-        views = self._extract_views(question_element)
-
         return Question(
             id=self._extract_id(link),
-            title=self._extract_title(question_element),
+            title=self._extract_text(question_element, ".s-post-summary--content-title a"),
             link=link,
-            excerpt=self._extract_excerpt(question_element),
+            excerpt=self._extract_text(question_element, ".s-post-summary--content-excerpt"),
             tags=self._extract_tags(question_element),
-            timestamp=self._extract_timestamp(question_element),
-            votes=votes,
-            answers=answers,
-            views=views,
+            timestamp=self._extract_attribute(question_element, "title", ".relativetime"),
+            votes=self._extract_stat(question_element, 1),
+            answers=self._extract_stat(question_element, 2),
+            views=self._extract_stat(question_element, 3),
         )
 
-    def _extract_votes(self, question_element: Tag) -> int:
-        """Extract the number of votes from the question element."""
-        votes_element = question_element.select_one(
-            ".s-post-summary--stats-item:nth-child(1) .s-post-summary--stats-item-number")
-        return int(votes_element.text.strip()) if votes_element else 0
+    def _extract_stat(self, question_element: Tag, nth_child: int) -> int:
+        stat_element = question_element.select_one(
+            f".s-post-summary--stats-item:nth-child({nth_child}) .s-post-summary--stats-item-number"
+        )
+        return int(stat_element.text.strip()) if stat_element else 0
 
-    def _extract_answers(self, question_element: Tag) -> int:
-        """Extract the number of answers from the question element."""
-        answers_element = question_element.select_one(
-            ".s-post-summary--stats-item:nth-child(2) .s-post-summary--stats-item-number")
-        return int(answers_element.text.strip()) if answers_element else 0
-
-    def _extract_views(self, question_element: Tag) -> int:
-        """Extract the number of views from the question element."""
-        views_element = question_element.select_one(
-            ".s-post-summary--stats-item:nth-child(3) .s-post-summary--stats-item-number")
-        return int(views_element.text.strip()) if views_element else 0
-
-    # Helper methods with clear single responsibilities
+    def _extract_tags(self, element: Tag) -> List[str]:
+        return [tag.text.strip() for tag in element.select(".post-tag")]
 
     def _build_link(self, path: str) -> str:
         return f"{self.base_url}{path}" if path else ""
@@ -74,14 +48,10 @@ class QuestionParser_Template_Method(ParserInterface):
         parts = (p for p in link.split('/') if p.isdigit())
         return int(next(parts, 0))
 
-    def _extract_title(self, element: Tag) -> str:
-        return element.text.strip() if element else "No title"
+    def _extract_text(self, element: Tag, selector: str) -> str:
+        sub_element = element.select_one(selector)
+        return sub_element.text.strip() if sub_element else "N/A"
 
-    def _extract_excerpt(self, element: Tag) -> str:
-        return element.text.strip() if element else "No excerpt"
-
-    def _extract_tags(self, element: Tag) -> list[str]:
-        return [tag.text for tag in element.select(".post-tag")]
-
-    def _extract_timestamp(self, element: Tag) -> str:
-        return element["title"] if element and element.has_attr("title") else "Unknown time"
+    def _extract_attribute(self, element: Tag, attr: str, selector: str) -> str:
+        sub_element = element.select_one(selector)
+        return sub_element[attr] if sub_element and attr in sub_element.attrs else "N/A"

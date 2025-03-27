@@ -14,119 +14,120 @@ subgraph legend{
         <tr><td>Function call</td><td><font color='black'>&#8594;</font></td></tr>
         </table></td></tr></table>
         >];
-}node_005e69c3 [label="21: _clean_excerpt()" name="display::QuestionDisplay._clean_excerpt" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
-node_92a9dc7b [label="27: display()" name="display::QuestionDisplay.display" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
-node_2c4fd31e [label="21: __init__()" name="fetcher::Fetcher_Strategy.__init__" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
-node_1d84418f [label="0: (global)()" name="main::(global)" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
-node_b5774e1e [label="6: main()" name="main::main" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
-node_b99825b0 [label="21: __init__()" name="parser::QuestionParser_Template_Method.__init__" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
-node_4a75031f [label="70: _build_link()" name="parser::QuestionParser_Template_Method._build_link" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
-node_14c890b2 [label="56: _extract_answers()" name="parser::QuestionParser_Template_Method._extract_answers" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
-node_b060fe1b [label="80: _extract_excerpt()" name="parser::QuestionParser_Template_Method._extract_excerpt" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
-node_3687a328 [label="73: _extract_id()" name="parser::QuestionParser_Template_Method._extract_id" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
-node_081bf222 [label="83: _extract_tags()" name="parser::QuestionParser_Template_Method._extract_tags" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
-node_f30dfb97 [label="86: _extract_timestamp()" name="parser::QuestionParser_Template_Method._extract_timestamp" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
-node_2fe5999a [label="77: _extract_title()" name="parser::QuestionParser_Template_Method._extract_title" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
-node_5fc8b517 [label="62: _extract_views()" name="parser::QuestionParser_Template_Method._extract_views" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
-node_1c203c02 [label="50: _extract_votes()" name="parser::QuestionParser_Template_Method._extract_votes" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
-node_d3cf4d29 [label="29: _parse_question()" name="parser::QuestionParser_Template_Method._parse_question" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
-node_9fd4e13f [label="24: parse()" name="parser::QuestionParser_Template_Method.parse" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
-node_eddec4f2 [label="28: __init__()" name="scraper::StackOverflowScraper_Facade.__init__" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
-node_61366fcb [label="22: __init__()" name="watcher::QuestionWatcher_Observer.__init__" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
-node_71423e58 [label="82: _get_storage_path()" name="watcher::QuestionWatcher_Observer._get_storage_path" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
-node_a8b95a59 [label="62: _load_last_seen_id()" name="watcher::QuestionWatcher_Observer._load_last_seen_id" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
-node_b8b69899 [label="78: _save_last_seen_id()" name="watcher::QuestionWatcher_Observer._save_last_seen_id" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
-node_52b4935f [label="42: check_new_questions()" name="watcher::QuestionWatcher_Observer.check_new_questions" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
-node_d04e7c57 [label="28: start_watching()" name="watcher::QuestionWatcher_Observer.start_watching" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
-node_92a9dc7b -> node_005e69c3 [color="#009E73" penwidth="2"];
-node_1d84418f -> node_b5774e1e [color="#CC79A7" penwidth="2"];
-node_d3cf4d29 -> node_4a75031f [color="#E69F00" penwidth="2"];
-node_d3cf4d29 -> node_14c890b2 [color="#E69F00" penwidth="2"];
-node_d3cf4d29 -> node_b060fe1b [color="#E69F00" penwidth="2"];
-node_d3cf4d29 -> node_3687a328 [color="#E69F00" penwidth="2"];
-node_d3cf4d29 -> node_081bf222 [color="#E69F00" penwidth="2"];
-node_d3cf4d29 -> node_f30dfb97 [color="#E69F00" penwidth="2"];
-node_d3cf4d29 -> node_2fe5999a [color="#E69F00" penwidth="2"];
-node_d3cf4d29 -> node_5fc8b517 [color="#E69F00" penwidth="2"];
-node_d3cf4d29 -> node_1c203c02 [color="#E69F00" penwidth="2"];
-node_9fd4e13f -> node_d3cf4d29 [color="#CC79A7" penwidth="2"];
-node_eddec4f2 -> node_2c4fd31e [color="#56B4E9" penwidth="2"];
-node_eddec4f2 -> node_b99825b0 [color="#56B4E9" penwidth="2"];
-node_61366fcb -> node_eddec4f2 [color="#009E73" penwidth="2"];
-node_61366fcb -> node_a8b95a59 [color="#009E73" penwidth="2"];
-node_a8b95a59 -> node_71423e58 [color="#E69F00" penwidth="2"];
-node_b8b69899 -> node_71423e58 [color="#E69F00" penwidth="2"];
-node_52b4935f -> node_92a9dc7b [color="#CC79A7" penwidth="2"];
-node_52b4935f -> node_b8b69899 [color="#CC79A7" penwidth="2"];
-node_d04e7c57 -> node_52b4935f [color="#CC79A7" penwidth="2"];
-subgraph cluster_afec48a3 {
-    label="File: display";
-    name="display";
-    style="filled";
-    graph[style=dotted];
-    subgraph cluster_aedd19cc {
-        node_005e69c3 node_92a9dc7b;
-        label="Class: QuestionDisplay";
-        name="QuestionDisplay";
-        style="filled";
-        graph[style=dotted];
-    };
-};
-subgraph cluster_69689485 {
+}node_4e1d44f2 [label="10: __init__()" name="fetcher::Fetcher_Strategy.__init__" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_c96696ad [label="0: (global)()" name="main::(global)" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_7d09c043 [label="10: main()" name="main::main" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_62ae97af [label="15: __init__()" name="notification_handler::Notifier.__init__" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_96110b7a [label="23: notify()" name="notification_handler::Notifier.notify" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_e3f5539c [label="10: __init__()" name="parser::QuestionParser_Template_Method.__init__" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_eac189c6 [label="44: _build_link()" name="parser::QuestionParser_Template_Method._build_link" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_6cc3f22c [label="55: _extract_attribute()" name="parser::QuestionParser_Template_Method._extract_attribute" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_9488f8ba [label="47: _extract_id()" name="parser::QuestionParser_Template_Method._extract_id" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_c092aa1e [label="35: _extract_stat()" name="parser::QuestionParser_Template_Method._extract_stat" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_a110019e [label="41: _extract_tags()" name="parser::QuestionParser_Template_Method._extract_tags" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_6dcbba4a [label="51: _extract_text()" name="parser::QuestionParser_Template_Method._extract_text" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_7260e8e3 [label="18: _parse_question()" name="parser::QuestionParser_Template_Method._parse_question" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_8385f091 [label="13: parse()" name="parser::QuestionParser_Template_Method.parse" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_0e9a3a31 [label="9: __init__()" name="scraper::StackOverflowScraper_Facade.__init__" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_4e6acc70 [label="17: __init__()" name="watcher::QuestionWatcher.__init__" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_1dd243b7 [label="77: _initialize_last_seen_id()" name="watcher::QuestionWatcher._initialize_last_seen_id" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_c8aa8aa5 [label="89: _process_new_questions()" name="watcher::QuestionWatcher._process_new_questions" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_63f58fee [label="97: _save_last_seen_id()" name="watcher::QuestionWatcher._save_last_seen_id" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_c36e50dd [label="58: check_new_questions()" name="watcher::QuestionWatcher.check_new_questions" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_729cbc5b [label="47: start_watching()" name="watcher::QuestionWatcher.start_watching" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_c96696ad -> node_7d09c043 [color="#0072B2" penwidth="2"];
+node_7d09c043 -> node_4e6acc70 [color="#009E73" penwidth="2"];
+node_7d09c043 -> node_729cbc5b [color="#009E73" penwidth="2"];
+node_7260e8e3 -> node_eac189c6 [color="#009E73" penwidth="2"];
+node_7260e8e3 -> node_6cc3f22c [color="#009E73" penwidth="2"];
+node_7260e8e3 -> node_9488f8ba [color="#009E73" penwidth="2"];
+node_7260e8e3 -> node_c092aa1e [color="#009E73" penwidth="2"];
+node_7260e8e3 -> node_c092aa1e [color="#009E73" penwidth="2"];
+node_7260e8e3 -> node_c092aa1e [color="#009E73" penwidth="2"];
+node_7260e8e3 -> node_a110019e [color="#009E73" penwidth="2"];
+node_7260e8e3 -> node_6dcbba4a [color="#009E73" penwidth="2"];
+node_7260e8e3 -> node_6dcbba4a [color="#009E73" penwidth="2"];
+node_8385f091 -> node_7260e8e3 [color="#E69F00" penwidth="2"];
+node_4e6acc70 -> node_4e1d44f2 [color="#000000" penwidth="2"];
+node_4e6acc70 -> node_62ae97af [color="#000000" penwidth="2"];
+node_4e6acc70 -> node_e3f5539c [color="#000000" penwidth="2"];
+node_4e6acc70 -> node_0e9a3a31 [color="#000000" penwidth="2"];
+node_4e6acc70 -> node_1dd243b7 [color="#000000" penwidth="2"];
+node_c8aa8aa5 -> node_96110b7a [color="#0072B2" penwidth="2"];
+node_c8aa8aa5 -> node_63f58fee [color="#0072B2" penwidth="2"];
+node_c36e50dd -> node_96110b7a [color="#0072B2" penwidth="2"];
+node_c36e50dd -> node_c8aa8aa5 [color="#0072B2" penwidth="2"];
+node_729cbc5b -> node_96110b7a [color="#009E73" penwidth="2"];
+node_729cbc5b -> node_96110b7a [color="#009E73" penwidth="2"];
+node_729cbc5b -> node_c36e50dd [color="#009E73" penwidth="2"];
+subgraph cluster_b3a4ae07 {
     label="File: fetcher";
     name="fetcher";
     style="filled";
     graph[style=dotted];
-    subgraph cluster_94faf234 {
-        node_2c4fd31e;
+    subgraph cluster_921a2783 {
+        node_4e1d44f2;
         label="Class: Fetcher_Strategy";
         name="Fetcher_Strategy";
         style="filled";
         graph[style=dotted];
     };
 };
-subgraph cluster_c55b800a {
-    node_b5774e1e node_1d84418f;
+subgraph cluster_47a20fbb {
+    node_7d09c043 node_c96696ad;
     label="File: main";
     name="main";
     style="filled";
     graph[style=dotted];
 };
-subgraph cluster_db8c7338 {
+subgraph cluster_b15e5e7a {
+    label="File: notification_handler";
+    name="notification_handler";
+    style="filled";
+    graph[style=dotted];
+    subgraph cluster_d88b6368 {
+        node_62ae97af node_96110b7a;
+        label="Class: Notifier";
+        name="Notifier";
+        style="filled";
+        graph[style=dotted];
+    };
+};
+subgraph cluster_4d11a5fe {
     label="File: parser";
     name="parser";
     style="filled";
     graph[style=dotted];
-    subgraph cluster_ab1eb2ba {
-        node_b99825b0 node_9fd4e13f node_d3cf4d29 node_1c203c02 node_14c890b2 node_5fc8b517 node_4a75031f node_3687a328 node_2fe5999a node_b060fe1b node_081bf222 node_f30dfb97;
+    subgraph cluster_7fe476e6 {
+        node_e3f5539c node_8385f091 node_7260e8e3 node_c092aa1e node_a110019e node_eac189c6 node_9488f8ba node_6dcbba4a node_6cc3f22c;
         label="Class: QuestionParser_Template_Method";
         name="QuestionParser_Template_Method";
         style="filled";
         graph[style=dotted];
     };
 };
-subgraph cluster_259257c4 {
+subgraph cluster_bb768b8f {
     label="File: scraper";
     name="scraper";
     style="filled";
     graph[style=dotted];
-    subgraph cluster_f2f1b506 {
-        node_eddec4f2;
+    subgraph cluster_6b4f25a2 {
+        node_0e9a3a31;
         label="Class: StackOverflowScraper_Facade";
         name="StackOverflowScraper_Facade";
         style="filled";
         graph[style=dotted];
     };
 };
-subgraph cluster_57f781b0 {
+subgraph cluster_533167be {
     label="File: watcher";
     name="watcher";
     style="filled";
     graph[style=dotted];
-    subgraph cluster_2d4240f7 {
-        node_61366fcb node_d04e7c57 node_52b4935f node_a8b95a59 node_b8b69899 node_71423e58;
-        label="Class: QuestionWatcher_Observer";
-        name="QuestionWatcher_Observer";
+    subgraph cluster_15cca2af {
+        node_4e6acc70 node_729cbc5b node_c36e50dd node_1dd243b7 node_c8aa8aa5 node_63f58fee;
+        label="Class: QuestionWatcher";
+        name="QuestionWatcher";
         style="filled";
         graph[style=dotted];
     };

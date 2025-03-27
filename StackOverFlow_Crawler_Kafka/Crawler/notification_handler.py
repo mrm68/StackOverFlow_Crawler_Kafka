@@ -1,3 +1,5 @@
+# notification_handler.py
+
 from enum import Enum, auto
 import time
 
@@ -11,7 +13,6 @@ class NotificationType(Enum):
 
 class Notifier:
     def __init__(self):
-        # Map enum members to their handler methods
         self._handlers = {
             NotificationType.WATCHER_STARTED: self._handle_watcher_started,
             NotificationType.WATCHER_STOPPED: self._handle_watcher_stopped,
@@ -20,17 +21,14 @@ class Notifier:
         }
 
     def notify(self, notification_type: NotificationType, **kwargs):
-        """Main notification interface"""
         handler = self._handlers.get(notification_type)
         if handler:
             handler(**kwargs)
         else:
             print(f"⚠️ Unhandled notification type: {notification_type}")
 
-    # Delegate methods
     def _handle_watcher_started(self, language: str, interval: int):
-        print(f"🚀 Starting watcher for '{language}'. Checking every {interval} seconds.")
-        print("Press Ctrl+C to stop...")
+        print(f"🚀 Watching '{language}', checking every {interval} seconds.")
 
     def _handle_watcher_stopped(self):
         print("\n🛑 Watcher stopped.")
@@ -39,4 +37,4 @@ class Notifier:
         print(f"\n🔔 Found {count} new questions:")
 
     def _handle_no_questions(self):
-        print(f"⏳ No new questions found. Last check: {time.strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"⏳ No new questions. Last check: {time.strftime('%Y-%m-%d %H:%M:%S')}")

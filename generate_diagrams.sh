@@ -1,19 +1,28 @@
 #!/bin/bash
 
-mkdir -p /app/diagrams
+# Set output directory (mount this when running)
+OUTPUT_DIR=${OUTPUT_DIR:-/app/diagrams}
+mkdir -p $OUTPUT_DIR
 
-# Generate diagram starting from main entry point
+echo "Generating diagrams to $OUTPUT_DIR..."
+
+# Generate targeted diagram
 code2flow \
-    Crawler/watcher.py main.py models.py \
-    --output /app/diagrams/crawler_flow.png \
+    ./StackOverFlow_Crawler_Kafka/Crawler/watcher.py \
+    ./StackOverFlow_Crawler_Kafka/main.py \
+    ./StackOverFlow_Crawler_Kafka/models.py \
+    --output $OUTPUT_DIR/crawler_flow.png \
     --language py \
-    --target-function "QuestionWatcher.start_watching"
+    --target-function "QuestionWatcher.start_watching" \
+    --downstream-depth 3
 
-# Alternative simplified version without depth
+# Generate full system diagram
 code2flow \
-    Crawler/*.py main.py models.py \
-    --output /app/diagrams/full_flow.png \
+    ./StackOverFlow_Crawler_Kafka/Crawler/*.py \
+    ./StackOverFlow_Crawler_Kafka/main.py \
+    ./StackOverFlow_Crawler_Kafka/models.py \
+    --output $OUTPUT_DIR/full_flow.png \
     --language py
 
-echo "Diagrams generated at:"
-ls -la /app/diagrams/
+echo "Diagrams generated:"
+ls -la $OUTPUT_DIR

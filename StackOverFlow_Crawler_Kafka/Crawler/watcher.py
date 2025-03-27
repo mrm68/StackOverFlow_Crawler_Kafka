@@ -3,84 +3,101 @@
 from .interfaces import WatcherInterface
 import time
 from pathlib import Path
-from .scraper import StackOverflowScraper_Facade as StackOverflowScraper
+import logging
+from .notification_handler import Notifier, NotificationType
 from .display import QuestionDisplay
-from .notification_handler import Notifier as notifier
-from .notification_handler import NotificationType as notif_type
+from .scraper import StackOverflowScraper_Facade
+from .fetcher import Fetcher_Strategy
+from .parser import QuestionParser_Template_Method
+
+logging.basicConfig(level=logging.INFO)
 
 
-class QuestionWatcher_Observer(WatcherInterface):
-
-    def __init__(self, language: str, check_interval: int = 60):
-        self.language = language
+class QuestionWatcher(WatcherInterface):
+    def __init__(self, language: str, check_interval: int = 60,
+                 scraper=None, notifier=None, display=None,
+                 storage_path: Path = None):
+        self.language = language  # Initialize language first
         self.check_interval = check_interval
-        self.scraper = StackOverflowScraper(language=language, max_questions=500)
-        self._storage_path = Path(f"last_seen_id_{self.language}.txt")
-        self.last_seen_id = self._load_last_seen_id()
-        self.new_questions_sorted = None
+
+        # Configure default scraper dependencies
+        base_url = "https://stackoverflow.com"
+
+        self.scraper = scraper or StackOverflowScraper_Facade(
+            fetcher=Fetcher_Strategy(
+                headers={
+                    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+                    "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+                },
+                url_builder=lambda page: (
+                    f"{base_url}/questions/tagged/{self.language}"  # Use self.language
+                    f"?tab=newest&page={page}"
+                ),
+                retries=3,
+                delay=2
+            ),
+            parser=QuestionParser_Template_Method(base_url=base_url),
+            max_questions=50
+        )
+        self.notifier = notifier or Notifier()
+        self.display = display or QuestionDisplay()
+        self.storage_path = storage_path or Path(f"last_seen_id_{self.language}.txt")
+        self.last_seen_id = self._initialize_last_seen_id()
 
     def start_watching(self):
-        """Initiate monitoring loop"""
-        notifier.notify(notif_type.WATCHER_STARTED)
+        """Initiate monitoring loop with notifications and graceful shutdown."""
+        self.notifier.notify(NotificationType.WATCHER_STARTED,
+                             language=self.language, interval=self.check_interval)
         try:
             while True:
                 self.check_new_questions()
                 time.sleep(self.check_interval)
         except KeyboardInterrupt:
-
-            notifier.notify(notif_type.WATCHER_STOPPED)
+            self.notifier.notify(NotificationType.WATCHER_STOPPED)
 
     def check_new_questions(self):
-        """Single check cycle implementation"""
-        def stop_condition(q): return q.id <= self.last_seen_id
-        questions = self.scraper.get_questions(stop_condition=stop_condition)
-        new_questions = self._extract_new_crawled_questions(questions)
+        """Fetch and handle new questions in a single cycle."""
+        try:
+            # Fetch questions with a stop condition based on the last seen ID
+            questions = self.scraper.get_questions(
+                stop_condition=lambda q: q.id <= self.last_seen_id
+            )
+            new_questions = [q for q in questions if q.id > self.last_seen_id]
 
-        if new_questions:
-            self._update_and_get_max_id(new_questions)
-            notifier.notify(notif_type.NEW_QUESTIONS)
-            QuestionDisplay.display(self.new_questions_sorted)
-        else:
-            notifier.notify(notif_type.NO_NEW_QUESTIONS)
+            if not new_questions:
+                self.notifier.notify(NotificationType.NO_NEW_QUESTIONS)
+                return
 
-    def _update_and_get_max_id(self, new_questions):
-        self.new_questions_sorted = sorted(new_questions, key=lambda q: q.id)
-        self.last_seen_id = self.new_questions_sorted[-1].id
+            # Sort questions by ID, update state, notify, and display them
+            self._process_new_questions(new_questions)
+
+        except Exception as e:
+            logging.error(f"Error during check cycle: {e}")
+
+    def _initialize_last_seen_id(self) -> int:
+        """Initialize the last seen ID from storage or via a fresh scrape."""
+        if not self.storage_path.exists():
+            return 0
+
+        try:
+            with open(self.storage_path, 'r') as f:
+                return int(f.read().strip())
+        except (ValueError, IOError) as e:
+            logging.warning(f"Failed to read last seen ID, defaulting to 0: {e}")
+            return 0
+
+    def _process_new_questions(self, new_questions):
+        """Sort, update state, save to storage, notify, and display."""
+        sorted_questions = sorted(new_questions, key=lambda q: q.id)
+        self.last_seen_id = sorted_questions[-1].id
         self._save_last_seen_id(self.last_seen_id)
-
-    def _extract_new_crawled_questions(self, questions):
-        return [q for q in questions if q.id > self.last_seen_id]
-
-    # State management methods
-
-    def _load_last_seen_id(self) -> int:
-        return self._last_crawled_id() if self._previously_crawled() else self._crawl_last_id()
-
-    def _crawl_last_id(self):
-        try:
-            questions = self.scraper.get_questions()
-            return self._get_max_crawled_id(questions)
-        except Exception as e:
-            print(f"Error initializing last seen ID: {e}")
-            return 0
-
-    def _get_max_crawled_ID(self, questions):
-        return max(q.id for q in questions) if questions else 0
-
-    def _initialize_last_id(self) -> int:
-        try:
-            questions = self.scraper.get_questions()
-            return self._get_max_id(questions)
-        except Exception as e:
-            print(f"Error initializing last seen ID: {e}")
-            return 0
-
-    def _previously_crawled(self):
-        return self._get_storage_path()
+        self.notifier.notify(NotificationType.NEW_QUESTIONS, count=len(sorted_questions))
+        self.display.display(sorted_questions)
 
     def _save_last_seen_id(self, last_id: int):
-        with open(self._get_storage_path(), 'w') as f:
-            f.write(str(last_id))
-
-    def _get_storage_path(self):
-        return Path(f"last_seen_id_{self.language}.txt")
+        """Persist the last seen ID."""
+        try:
+            with open(self.storage_path, 'w') as f:
+                f.write(str(last_id))
+        except IOError as e:
+            logging.error(f"Error saving last seen ID: {e}")

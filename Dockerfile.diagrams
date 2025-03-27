@@ -1,0 +1,19 @@
+# Dockerfile.diagrams
+FROM python:3.9-slim
+
+# Install system dependencies including graphviz
+RUN apt-get update && apt-get install -y graphviz && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Install diagram generation tools
+RUN pip install --no-cache-dir code2flow
+
+# Copy only what's needed for diagrams
+COPY generate_diagrams.sh .
+COPY StackOverFlow_Crawler_Kafka/ ./StackOverFlow_Crawler_Kafka/
+
+# Make script executable
+RUN chmod +x generate_diagrams.sh
+
+ENTRYPOINT ["./generate_diagrams.sh"]

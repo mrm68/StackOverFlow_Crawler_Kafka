@@ -3,28 +3,18 @@
 from .interfaces import FetcherInterface
 import requests
 from typing import Optional
-from requests.exceptions import RequestException
 import time
 
 
 class Fetcher_Strategy(FetcherInterface):
-    """
-    Strategy Pattern Implementation
-
-    Responsibilities:
-    - Handle HTTP communication with retry logic
-    - Decouple fetching strategy from core logic
-
-    Implements: FetcherInterface
-    """
-
-    def __init__(self, headers, url_builder):
+    def __init__(self, headers, url_builder, retries=3, delay=2):
         self.headers = headers
         self.url_builder = url_builder
+        self.retries = retries
+        self.delay = delay
 
     def fetch(self, page: int) -> Optional[str]:
-        """Execute fetch operation with 3 retries"""
-        for _ in range(3):
+        for attempt in range(self.retries):
             try:
                 response = requests.get(
                     self.url_builder(page),
@@ -32,7 +22,8 @@ class Fetcher_Strategy(FetcherInterface):
                 )
                 response.raise_for_status()
                 return response.text
-            except RequestException as e:
-                print(f"Error fetching page {page}: {e}")
-                time.sleep(2)
+            except requests.RequestException as e:
+                if attempt + 1 == self.retries:
+                    raise RuntimeError(f"Failed to fetch page {page}: {e}")
+                time.sleep(self.delay)
         return None
