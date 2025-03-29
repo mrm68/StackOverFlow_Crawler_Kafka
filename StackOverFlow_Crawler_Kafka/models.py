@@ -24,3 +24,13 @@ class Constants(BaseModel):
     retries: str = "3"
     delay: str = "2"
     max_questions: str = "50"
+
+
+class ParsConstants(BaseModel):
+    post_summary: str = ".s-post-summary"
+    post_title: str = ".s-post-summary--content-title a"
+    excerpt_elem: str = ".s-post-summary--content-excerpt"
+    timestamp_elem: str = ".relativetime"
+    vote_elem: str = ".s-post-summary--stats-item:nth-child(1) span"
+    answer_elem: str = ".s-post-summary--stats-item:nth-child(2) span"
+    view_elem: str = ".s-post-summary--stats-item:nth-child(3) span"

@@ -1,3 +1,5 @@
+# generate_diagrams.sh
+
 #!/bin/bash
 
 # Use the OUTPUT_DIR environment variable if provided; default to /app/diagrams.

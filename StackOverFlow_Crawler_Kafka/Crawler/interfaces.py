@@ -69,6 +69,9 @@ class DisplayInterface(ABC):
 
 
 class StreamInterface(ABC):
+    """
+    Iterator Pattern Implementation for lazy question loading.
+    """
     @abstractmethod
     def stream(self, stop_condition: Optional[Callable[[Question], bool]] = None):
         """

@@ -4,3 +4,8 @@ __pycache__/
 *.pyd
 .git/
 venv/
+__pycache__/
+*.pyc
+venv/
+*.prof
+*.png

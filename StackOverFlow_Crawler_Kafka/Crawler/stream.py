@@ -1,36 +1,45 @@
 # stream.py
 
 from .interfaces import StreamInterface
-from itertools import islice, takewhile, count
+from itertools import islice, count
 from typing import Callable, Iterable, Optional
 from models import Question
 import logging
-
+from .notification_handler import NotificationType, Notifier
+from .tracedecorator import log_usage
 logger = logging.getLogger(__name__)
 
 
 class QuestionStreamIterator(StreamInterface):
-    """
-    Iterator Pattern Implementation for lazy question loading.
-    """
-
-    def __init__(self, fetcher, parser, max_questions=50):
+    @log_usage()
+    def __init__(self, fetcher, parser, max_questions=50, notifier: Notifier = Notifier):
         self.fetcher = fetcher
         self.parser = parser
         self.max_questions = max_questions
+        self.notifier = notifier or Notifier()
 
-    def stream(self,
-               stop_condition: Optional[Callable[[Question], bool]] = None) -> Iterable[Question]:
+    @log_usage()
+    def stream(
+        self,
+        stop_condition: Optional[Callable[[Question], bool]] = None
+    ) -> Iterable[Question]:
         try:
-            page_generator = (self.fetcher.fetch(p) for p in count(1))
-            # Parse each page and yield questions.
-            parsed_questions = (
-                q for page in page_generator if page for q in self.parser.parse(page))
-            # Apply the optional stop condition.
-            if stop_condition:
-                parsed_questions = takewhile(lambda q: not stop_condition(q), parsed_questions)
-            # Limit the number of questions to max_questions.
+            page_generator = self._get_page_content_generator()
+            parsed_questions = self._parse_questions(page_generator, stop_condition)
             return islice(parsed_questions, self.max_questions)
         except Exception as e:
-            logger.error(f"Error while streaming questions: {e}")
-            raise RuntimeError(f"Error while streaming questions: {e}")
+            self.notifier.notify(NotificationType.STREAMING_ERROR, str(e))
+
+    @log_usage()
+    def _parse_questions(self, page_generator, stop_condition=None):
+        return (
+            q
+            for page in page_generator
+            if page
+            for q in self.parser.parse(page)
+            if stop_condition is None or not stop_condition(q)
+        )
+
+    @log_usage()
+    def _get_page_content_generator(self):
+        return (self.fetcher.fetch(p) for p in count(1))

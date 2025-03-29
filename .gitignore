@@ -13,6 +13,9 @@ tree.txt
 # Environment
 .env
 venv/
+.dockerignore
+.gitignore
+usage.log
 
 # Editor Config
 .flake8
@@ -20,3 +23,5 @@ venv/
 # diagrams
 diagrams
 diagrams/
+
+

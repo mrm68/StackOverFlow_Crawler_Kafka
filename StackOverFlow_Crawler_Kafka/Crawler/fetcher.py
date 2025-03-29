@@ -5,12 +5,13 @@ import requests
 from typing import Callable, Optional
 import time
 import logging
-from notification_handler import Notifier, NotificationType
-
+from .notification_handler import Notifier, NotificationType
+from .tracedecorator import log_usage
 logger = logging.getLogger(__name__)
 
 
 class FetcherStrategy(FetcherInterface):
+    @log_usage()
     def __init__(self, headers: dict,
                  url_builder: Callable[[int], str],
                  retries: int = 3, delay: int = 2,
@@ -21,6 +22,7 @@ class FetcherStrategy(FetcherInterface):
         self.delay = delay
         self.notifier = notifier
 
+    @log_usage()
     def fetch(self, page: int) -> Optional[str]:
         for attempt in range(1, self.retries + 1):
             try:
@@ -32,7 +34,8 @@ class FetcherStrategy(FetcherInterface):
             except requests.RequestException as e:
                 logger.warning(f"Attempt {attempt} failed: {e}")
                 if attempt == self.retries:
-                    logger.error(f"Fetch failed after {self.retries} attempts.")
-                    raise RuntimeError(f"Fetch failed after {self.retries} attempts: {e}")
+                    self.notifier.notify(
+                        NotificationType.FETCH_FAILED,
+                        retries=f"{str(self.retries)} for the page {str(page)}", e=str(e))
                 time.sleep(self.delay)
         return None
