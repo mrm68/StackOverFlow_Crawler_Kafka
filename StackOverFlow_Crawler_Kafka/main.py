@@ -9,9 +9,18 @@ from Crawler.notification_handler import Notifier
 from pathlib import Path
 from models import Constants
 from models import ParsConstants
+import os
+
+
+def initiate_kafka():
+    print("✅ Starting crawler with config:")
+    print(f"Kafka: {os.getenv('KAFKA_BOOTSTRAP_SERVERS')}")
+    print(f"Topic: {os.getenv('KAFKA_TOPIC')}")
+    print(f"Interval: {os.getenv('SCRAPE_INTERVAL', '60')}s")
 
 
 def main():
+    initiate_kafka()
     constants = Constants()
     notifier_object = Notifier()
     fetcher = FetcherStrategy(

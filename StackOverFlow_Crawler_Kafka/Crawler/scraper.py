@@ -20,7 +20,6 @@ class StackOverflowScraperFacade(ScraperInterface):
         self.max_questions = max_questions
         self.notifier = self._generate_notifier(notifier)
 
-    @log_usage()
     def _generate_notifier(self, notifier):
         return Notifier() if not notifier else Notifier()
 
@@ -53,7 +52,6 @@ class StackOverflowScraperFacade(ScraperInterface):
 
         return questions[:limit]
 
-    @log_usage()
     def _read_max_questions_limit(self, max_questions):
         return max_questions if max_questions is not None else self.max_questions
 
