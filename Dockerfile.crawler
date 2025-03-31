@@ -1,20 +1,22 @@
+#dockerfile.crawler
 FROM python:3.9-slim
 
-# 1. Install dependencies
+# Install dependencies (including librdkafka for Kafka support)
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    librdkafka-dev \
-    && rm -rf /var/lib/apt/lists/*
+    librdkafka-dev && \
+    rm -rf /var/lib/apt/lists/*
 
-# 2. Set working directory
 WORKDIR /app
 
-# 3. Copy requirements first (better caching)
+# Copy requirements and install them
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 4. Copy ALL files (not just the folder)
+# Copy all project files into container
 COPY . .
 
-# 5. Make sure the path is correct
+# Ensure PYTHONPATH is set so modules are found
+ENV PYTHONPATH="/app"
+
 CMD ["python", "-u", "./StackOverFlow_Crawler_Kafka/main.py"]

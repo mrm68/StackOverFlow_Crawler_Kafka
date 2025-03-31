@@ -4,9 +4,9 @@ from .interfaces import WatcherInterface
 from pathlib import Path
 from typing import List
 from models import Question
-import time
 from .notification_handler import NotificationType, Notifier
 from .tracedecorator import log_usage
+import asyncio  # Added for async support
 
 
 class QuestionWatcher(WatcherInterface):
@@ -19,9 +19,7 @@ class QuestionWatcher(WatcherInterface):
     @log_usage()
     def _load_state(self) -> int:
         try:
-            if self.storage_path.exists():
-                return int(self.storage_path.read_text())
-            return 0
+            return int(self.storage_path.read_text()) if self.storage_path.exists() else 0
         except (ValueError, IOError) as e:
             self.notifier.notify(NotificationType.STATE_LOADING_FAILURE, e)
             return 0
@@ -49,10 +47,10 @@ class QuestionWatcher(WatcherInterface):
             self.notifier.notify(NotificationType.STATE_PERSISTING_FAILURE, e)
 
     @log_usage()
-    def run(self, scraper, display, interval: int = 60) -> None:
+    async def run(self, scraper, display, db_adapter=None, interval: int = 60) -> None:  # Made async
         self.notifier.notify(NotificationType.CRAWLER_STARTED)
         try:
-            self._start_watching(scraper, display, interval)  # Changed parameter
+            await self._start_watching(scraper, display, db_adapter, interval)  # Async call
         except KeyboardInterrupt:
             self.notifier.notify(NotificationType.WATCHER_STOPPED, e=str(''))
             self.persist_state()
@@ -60,9 +58,8 @@ class QuestionWatcher(WatcherInterface):
             self.notifier.notify(NotificationType.WATCHER_STOPPED, e=str(e))
 
     @log_usage()
-    def _start_watching(self, scraper, display, interval):
+    async def _start_watching(self, scraper, display, db_adapter, interval):  # Made async
         while True:
-            # Fresh scrape on each iteration
             questions = scraper.scrape(max_questions=50)
             new_questions = self.watch(questions)
 
@@ -71,12 +68,17 @@ class QuestionWatcher(WatcherInterface):
                     NotificationType.NEW_QUESTIONS,
                     count=len(new_questions)
                 )
-                display.display(self._sorted_questions(new_questions))
+                sorted_questions = self._sorted_questions(new_questions)
+                display.display(sorted_questions)
+
+                if db_adapter:
+                    await db_adapter.insert_questions(new_questions)  # Proper async call
+
                 self.persist_state()
             else:
                 self.notifier.notify(NotificationType.NO_NEW_QUESTIONS)
 
-            time.sleep(interval)
+            await asyncio.sleep(interval)  # Replaced time.sleep with async version
 
     @log_usage()
     def _sorted_questions(self, new_questions):

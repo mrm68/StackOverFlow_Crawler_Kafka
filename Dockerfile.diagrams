@@ -1,3 +1,5 @@
+# Dockerfile.diagrams
+
 FROM python:3.9-slim
 
 # Install system dependency: graphviz (required by code2flow)

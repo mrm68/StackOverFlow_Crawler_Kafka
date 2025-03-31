@@ -7,9 +7,10 @@ from Crawler.watcher import QuestionWatcher
 from Crawler.display import QuestionDisplay
 from Crawler.notification_handler import Notifier
 from pathlib import Path
-from models import Constants
-from models import ParsConstants
+from models import Constants, ParsConstants
 import os
+import asyncio  # Added for async main
+from Crawler.db_adapter import PostgresAdapter
 
 
 def initiate_kafka():
@@ -19,7 +20,7 @@ def initiate_kafka():
     print(f"Interval: {os.getenv('SCRAPE_INTERVAL', '60')}s")
 
 
-def main():
+async def main():  # Made async
     initiate_kafka()
     constants = Constants()
     notifier_object = Notifier()
@@ -38,7 +39,11 @@ def main():
     watcher = QuestionWatcher(storage_path=_get_storage_path(), notifier=notifier_object)
     display = QuestionDisplay()
 
-    watcher.run(scraper, display, interval=int(constants.interval))
+    db_adapter = PostgresAdapter()
+    await db_adapter.init()  # Async init
+
+    # Run the async watcher
+    await watcher.run(scraper, display, db_adapter=db_adapter, interval=int(constants.interval))
 
 
 def _get_storage_path():
@@ -50,4 +55,4 @@ def _build_url(base_url, tag):
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())  # Proper async entry point

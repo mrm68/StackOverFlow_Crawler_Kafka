@@ -54,7 +54,3 @@ class StackOverflowScraperFacade(ScraperInterface):
 
     def _read_max_questions_limit(self, max_questions):
         return max_questions if max_questions is not None else self.max_questions
-
-    @log_usage()
-    def get_questions(self) -> List[Question]:
-        return self.scrape()
