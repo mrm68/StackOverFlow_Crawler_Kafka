@@ -21,7 +21,7 @@ class StackOverflowScraperFacade(ScraperInterface):
         self.notifier = self._generate_notifier(notifier)
 
     def _generate_notifier(self, notifier):
-        return Notifier() if not notifier else Notifier()
+        return Notifier() if not notifier else notifier
 
     @log_usage()
     def scrape(self, max_questions: int = None,
@@ -43,7 +43,8 @@ class StackOverflowScraperFacade(ScraperInterface):
                 break
 
             if stop_condition:
-                page_questions = [q for q in page_questions if not stop_condition(q)]
+                page_questions = [
+                    q for q in page_questions if not stop_condition(q)]
                 if not page_questions:
                     break
 

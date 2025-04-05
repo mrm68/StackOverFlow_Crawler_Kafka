@@ -1,0 +1,285 @@
+digraph G {
+concentrate=true;
+splines="ortho";
+rankdir="LR";
+subgraph legend{
+    rank = min;
+    label = "legend";
+    Legend [shape=none, margin=0, label = <
+        <table cellspacing="0" cellpadding="0" border="1"><tr><td>Code2flow Legend</td></tr><tr><td>
+        <table cellspacing="0">
+        <tr><td>Regular function</td><td width="50px" bgcolor='#cccccc'></td></tr>
+        <tr><td>Trunk function (nothing calls this)</td><td bgcolor='#966F33'></td></tr>
+        <tr><td>Leaf function (this calls nothing else)</td><td bgcolor='#6db33f'></td></tr>
+        <tr><td>Function call</td><td><font color='black'>&#8594;</font></td></tr>
+        </table></td></tr></table>
+        >];
+}node_c9190a17 [label="10: __init__()" name="db_adapter::PostgresAdapter.__init__" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_0ebf0df7 [label="21: _create_table()" name="db_adapter::PostgresAdapter._create_table" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_aa0a6966 [label="57: close()" name="db_adapter::PostgresAdapter.close" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_401ffdd9 [label="15: init()" name="db_adapter::PostgresAdapter.init" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_361da614 [label="38: insert_questions()" name="db_adapter::PostgresAdapter.insert_questions" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_6d87b883 [label="10: display()" name="display::QuestionDisplay.display" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_b3bd4452 [label="15: __init__()" name="fetcher::FetcherStrategy.__init__" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_c241fe94 [label="26: fetch()" name="fetcher::FetcherStrategy.fetch" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_32ab2b3b [label="0: (global)()" name="main::(global)" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_921c260d [label="53: _build_url()" name="main::_build_url" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_ee603d3b [label="49: _get_storage_path()" name="main::_get_storage_path" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_2337ba0f [label="16: initiate_kafka()" name="main::initiate_kafka" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_f77c9810 [label="23: main()" name="main::main" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_84c42e37 [label="26: __init__()" name="notification_handler::Notifier.__init__" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_e22b225d [label="48: notify()" name="notification_handler::Notifier.notify" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_7b13226b [label="13: __init__()" name="parser::QuestionParserTemplateMethod.__init__" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_bdafaea2 [label="61: _extract_excerpt()" name="parser::QuestionParserTemplateMethod._extract_excerpt" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_7f4c7572 [label="58: _extract_link()" name="parser::QuestionParserTemplateMethod._extract_link" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_f9aeafbf [label="52: _extract_questionID()" name="parser::QuestionParserTemplateMethod._extract_questionID" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_d83c7a1c [label="68: _extract_questionTags()" name="parser::QuestionParserTemplateMethod._extract_questionTags" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_f1bc6d8e [label="64: _extract_timestamp()" name="parser::QuestionParserTemplateMethod._extract_timestamp" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_9d2f9a92 [label="55: _extract_title()" name="parser::QuestionParserTemplateMethod._extract_title" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_7addca93 [label="71: _extract_viewsCount()" name="parser::QuestionParserTemplateMethod._extract_viewsCount" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_3a15e252 [label="79: _extract_votesCount()" name="parser::QuestionParserTemplateMethod._extract_votesCount" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_e9717c5b [label="75: _extracts_answersCount()" name="parser::QuestionParserTemplateMethod._extracts_answersCount" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_1e042cf8 [label="20: parse()" name="parser::QuestionParserTemplateMethod.parse" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_ae1aa2e4 [label="18: __init__()" name="scraper::StackOverflowScraper.__init__" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_0549c008 [label="75: _extract_excerpt()" name="scraper::StackOverflowScraper._extract_excerpt" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_15e44dca [label="91: _extract_id()" name="scraper::StackOverflowScraper._extract_id" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_94e1fdf7 [label="70: _extract_link()" name="scraper::StackOverflowScraper._extract_link" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_298dcf5f [label="80: _extract_tags()" name="scraper::StackOverflowScraper._extract_tags" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_15ed7325 [label="83: _extract_timestamp()" name="scraper::StackOverflowScraper._extract_timestamp" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_5d1a54d8 [label="65: _extract_title()" name="scraper::StackOverflowScraper._extract_title" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_b627999d [label="25: build_url()" name="scraper::StackOverflowScraper.build_url" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_a3d8f14b [label="30: fetch_page()" name="scraper::StackOverflowScraper.fetch_page" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_3fc8afc9 [label="99: get_questions()" name="scraper::StackOverflowScraper.get_questions" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_e0a4dec1 [label="43: parse_page()" name="scraper::StackOverflowScraper.parse_page" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_ba781987 [label="15: __init__()" name="scraper::StackOverflowScraperFacade.__init__" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_4cac3c6e [label="23: _generate_notifier()" name="scraper::StackOverflowScraperFacade._generate_notifier" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_2813602f [label="55: _read_max_questions_limit()" name="scraper::StackOverflowScraperFacade._read_max_questions_limit" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_874e3bd1 [label="27: scrape()" name="scraper::StackOverflowScraperFacade.scrape" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_bf62d5ec [label="15: __init__()" name="stream::QuestionStreamIterator.__init__" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_7560bea4 [label="44: _get_page_content_generator()" name="stream::QuestionStreamIterator._get_page_content_generator" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_ba469a15 [label="34: _parse_questions()" name="stream::QuestionStreamIterator._parse_questions" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_ed47a252 [label="22: stream()" name="stream::QuestionStreamIterator.stream" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_766e4e7d [label="14: __init__()" name="watcher::QuestionWatcher.__init__" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_07920499 [label="14: __init__()" name="watcher::QuestionWatcher.__init__" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_e9eea263 [label="35: _get_max_question_id()" name="watcher::QuestionWatcher._get_max_question_id" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_9d1f3f81 [label="39: _get_new_questions()" name="watcher::QuestionWatcher._get_new_questions" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_f8a207dc [label="21: _get_storage_path()" name="watcher::QuestionWatcher._get_storage_path" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_8e0ed9e9 [label="24: _load_last_seen_id()" name="watcher::QuestionWatcher._load_last_seen_id" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_3fa42be6 [label="20: _load_state()" name="watcher::QuestionWatcher._load_state" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_135d5c02 [label="45: _save_last_seen_id()" name="watcher::QuestionWatcher._save_last_seen_id" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_0b059643 [label="84: _sorted_questions()" name="watcher::QuestionWatcher._sorted_questions" shape="rect" style="rounded,filled" fillcolor="#6db33f" ];
+node_88937fc7 [label="61: _start_watching()" name="watcher::QuestionWatcher._start_watching" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_fb61769c [label="62: check_new_questions()" name="watcher::QuestionWatcher.check_new_questions" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_d33bd6aa [label="43: persist_state()" name="watcher::QuestionWatcher.persist_state" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_81cfd074 [label="50: run()" name="watcher::QuestionWatcher.run" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_496ebcdb [label="49: start_watching()" name="watcher::QuestionWatcher.start_watching" shape="rect" style="rounded,filled" fillcolor="#966F33" ];
+node_1b9451a0 [label="28: watch()" name="watcher::QuestionWatcher.watch" shape="rect" style="rounded,filled" fillcolor="#cccccc" ];
+node_aa0a6966 -> node_aa0a6966 [color="#D55E00" penwidth="2"];
+node_401ffdd9 -> node_0ebf0df7 [color="#E69F00" penwidth="2"];
+node_c241fe94 -> node_e22b225d [color="#F0E442" penwidth="2"];
+node_c241fe94 -> node_e22b225d [color="#F0E442" penwidth="2"];
+node_32ab2b3b -> node_f77c9810 [color="#009E73" penwidth="2"];
+node_f77c9810 -> node_c9190a17 [color="#000000" penwidth="2"];
+node_f77c9810 -> node_401ffdd9 [color="#000000" penwidth="2"];
+node_f77c9810 -> node_b3bd4452 [color="#000000" penwidth="2"];
+node_f77c9810 -> node_921c260d [color="#000000" penwidth="2"];
+node_f77c9810 -> node_ee603d3b [color="#000000" penwidth="2"];
+node_f77c9810 -> node_2337ba0f [color="#000000" penwidth="2"];
+node_f77c9810 -> node_84c42e37 [color="#000000" penwidth="2"];
+node_f77c9810 -> node_7b13226b [color="#000000" penwidth="2"];
+node_f77c9810 -> node_ba781987 [color="#000000" penwidth="2"];
+node_7b13226b -> node_84c42e37 [color="#009E73" penwidth="2"];
+node_1e042cf8 -> node_e22b225d [color="#000000" penwidth="2"];
+node_1e042cf8 -> node_bdafaea2 [color="#000000" penwidth="2"];
+node_1e042cf8 -> node_7f4c7572 [color="#000000" penwidth="2"];
+node_1e042cf8 -> node_f9aeafbf [color="#000000" penwidth="2"];
+node_1e042cf8 -> node_d83c7a1c [color="#000000" penwidth="2"];
+node_1e042cf8 -> node_f1bc6d8e [color="#000000" penwidth="2"];
+node_1e042cf8 -> node_9d2f9a92 [color="#000000" penwidth="2"];
+node_1e042cf8 -> node_7addca93 [color="#000000" penwidth="2"];
+node_1e042cf8 -> node_3a15e252 [color="#000000" penwidth="2"];
+node_1e042cf8 -> node_e9717c5b [color="#000000" penwidth="2"];
+node_a3d8f14b -> node_b627999d [color="#009E73" penwidth="2"];
+node_3fc8afc9 -> node_a3d8f14b [color="#E69F00" penwidth="2"];
+node_3fc8afc9 -> node_e0a4dec1 [color="#E69F00" penwidth="2"];
+node_e0a4dec1 -> node_0549c008 [color="#E69F00" penwidth="2"];
+node_e0a4dec1 -> node_15e44dca [color="#E69F00" penwidth="2"];
+node_e0a4dec1 -> node_94e1fdf7 [color="#E69F00" penwidth="2"];
+node_e0a4dec1 -> node_298dcf5f [color="#E69F00" penwidth="2"];
+node_e0a4dec1 -> node_15ed7325 [color="#E69F00" penwidth="2"];
+node_e0a4dec1 -> node_5d1a54d8 [color="#E69F00" penwidth="2"];
+node_ba781987 -> node_4cac3c6e [color="#CC79A7" penwidth="2"];
+node_4cac3c6e -> node_84c42e37 [color="#D55E00" penwidth="2"];
+node_4cac3c6e -> node_84c42e37 [color="#D55E00" penwidth="2"];
+node_874e3bd1 -> node_e22b225d [color="#E69F00" penwidth="2"];
+node_874e3bd1 -> node_e22b225d [color="#E69F00" penwidth="2"];
+node_874e3bd1 -> node_2813602f [color="#E69F00" penwidth="2"];
+node_bf62d5ec -> node_84c42e37 [color="#F0E442" penwidth="2"];
+node_ed47a252 -> node_e22b225d [color="#56B4E9" penwidth="2"];
+node_ed47a252 -> node_7560bea4 [color="#56B4E9" penwidth="2"];
+node_ed47a252 -> node_ba469a15 [color="#56B4E9" penwidth="2"];
+node_07920499 -> node_84c42e37 [color="#E69F00" penwidth="2"];
+node_07920499 -> node_3fa42be6 [color="#E69F00" penwidth="2"];
+node_766e4e7d -> node_ae1aa2e4 [color="#0072B2" penwidth="2"];
+node_766e4e7d -> node_8e0ed9e9 [color="#0072B2" penwidth="2"];
+node_8e0ed9e9 -> node_3fc8afc9 [color="#E69F00" penwidth="2"];
+node_8e0ed9e9 -> node_f8a207dc [color="#E69F00" penwidth="2"];
+node_8e0ed9e9 -> node_135d5c02 [color="#E69F00" penwidth="2"];
+node_3fa42be6 -> node_e22b225d [color="#D55E00" penwidth="2"];
+node_135d5c02 -> node_f8a207dc [color="#56B4E9" penwidth="2"];
+node_88937fc7 -> node_361da614 [color="#CC79A7" penwidth="2"];
+node_88937fc7 -> node_e22b225d [color="#CC79A7" penwidth="2"];
+node_88937fc7 -> node_e22b225d [color="#CC79A7" penwidth="2"];
+node_88937fc7 -> node_0b059643 [color="#CC79A7" penwidth="2"];
+node_88937fc7 -> node_d33bd6aa [color="#CC79A7" penwidth="2"];
+node_88937fc7 -> node_1b9451a0 [color="#CC79A7" penwidth="2"];
+node_fb61769c -> node_6d87b883 [color="#F0E442" penwidth="2"];
+node_fb61769c -> node_3fc8afc9 [color="#F0E442" penwidth="2"];
+node_fb61769c -> node_135d5c02 [color="#F0E442" penwidth="2"];
+node_d33bd6aa -> node_e22b225d [color="#56B4E9" penwidth="2"];
+node_81cfd074 -> node_e22b225d [color="#F0E442" penwidth="2"];
+node_81cfd074 -> node_e22b225d [color="#F0E442" penwidth="2"];
+node_81cfd074 -> node_e22b225d [color="#F0E442" penwidth="2"];
+node_81cfd074 -> node_88937fc7 [color="#F0E442" penwidth="2"];
+node_81cfd074 -> node_d33bd6aa [color="#F0E442" penwidth="2"];
+node_496ebcdb -> node_fb61769c [color="#009E73" penwidth="2"];
+node_1b9451a0 -> node_e9eea263 [color="#000000" penwidth="2"];
+node_1b9451a0 -> node_9d1f3f81 [color="#000000" penwidth="2"];
+subgraph cluster_374caafd {
+    label="File: db_adapter";
+    name="db_adapter";
+    style="filled";
+    graph[style=dotted];
+    subgraph cluster_c34e52c1 {
+        node_c9190a17 node_401ffdd9 node_0ebf0df7 node_361da614 node_aa0a6966;
+        label="Class: PostgresAdapter";
+        name="PostgresAdapter";
+        style="filled";
+        graph[style=dotted];
+    };
+};
+subgraph cluster_614d29de {
+    label="File: display";
+    name="display";
+    style="filled";
+    graph[style=dotted];
+    subgraph cluster_ba6fa96f {
+        node_6d87b883;
+        label="Class: QuestionDisplay";
+        name="QuestionDisplay";
+        style="filled";
+        graph[style=dotted];
+    };
+};
+subgraph cluster_0b8230ef {
+    label="File: fetcher";
+    name="fetcher";
+    style="filled";
+    graph[style=dotted];
+    subgraph cluster_95e73110 {
+        node_b3bd4452 node_c241fe94;
+        label="Class: FetcherStrategy";
+        name="FetcherStrategy";
+        style="filled";
+        graph[style=dotted];
+    };
+};
+subgraph cluster_865729a0 {
+    node_2337ba0f node_f77c9810 node_ee603d3b node_921c260d node_32ab2b3b;
+    label="File: main";
+    name="main";
+    style="filled";
+    graph[style=dotted];
+};
+subgraph cluster_0e3ad987 {
+    label="File: notification_handler";
+    name="notification_handler";
+    style="filled";
+    graph[style=dotted];
+    subgraph cluster_7b82fb52 {
+        node_84c42e37 node_e22b225d;
+        label="Class: Notifier";
+        name="Notifier";
+        style="filled";
+        graph[style=dotted];
+    };
+};
+subgraph cluster_a622c6b4 {
+    label="File: parser";
+    name="parser";
+    style="filled";
+    graph[style=dotted];
+    subgraph cluster_357a3b3f {
+        node_7b13226b node_1e042cf8 node_f9aeafbf node_9d2f9a92 node_7f4c7572 node_bdafaea2 node_f1bc6d8e node_d83c7a1c node_7addca93 node_e9717c5b node_3a15e252;
+        label="Class: QuestionParserTemplateMethod";
+        name="QuestionParserTemplateMethod";
+        style="filled";
+        graph[style=dotted];
+    };
+};
+subgraph cluster_03c229d1 {
+    label="File: scraper";
+    name="scraper";
+    style="filled";
+    graph[style=dotted];
+    subgraph cluster_67db1e30 {
+        node_ba781987 node_4cac3c6e node_874e3bd1 node_2813602f;
+        label="Class: StackOverflowScraperFacade";
+        name="StackOverflowScraperFacade";
+        style="filled";
+        graph[style=dotted];
+    };
+};
+subgraph cluster_52b087d1 {
+    label="File: scraper";
+    name="scraper";
+    style="filled";
+    graph[style=dotted];
+    subgraph cluster_b4621cfb {
+        node_ae1aa2e4 node_b627999d node_a3d8f14b node_e0a4dec1 node_5d1a54d8 node_94e1fdf7 node_0549c008 node_298dcf5f node_15ed7325 node_15e44dca node_3fc8afc9;
+        label="Class: StackOverflowScraper";
+        name="StackOverflowScraper";
+        style="filled";
+        graph[style=dotted];
+    };
+};
+subgraph cluster_0d7128d8 {
+    label="File: stream";
+    name="stream";
+    style="filled";
+    graph[style=dotted];
+    subgraph cluster_d58bdccc {
+        node_bf62d5ec node_ed47a252 node_ba469a15 node_7560bea4;
+        label="Class: QuestionStreamIterator";
+        name="QuestionStreamIterator";
+        style="filled";
+        graph[style=dotted];
+    };
+};
+subgraph cluster_5d561f46 {
+    label="File: watcher";
+    name="watcher";
+    style="filled";
+    graph[style=dotted];
+    subgraph cluster_77244bc6 {
+        node_07920499 node_3fa42be6 node_1b9451a0 node_e9eea263 node_9d1f3f81 node_d33bd6aa node_81cfd074 node_88937fc7 node_0b059643;
+        label="Class: QuestionWatcher";
+        name="QuestionWatcher";
+        style="filled";
+        graph[style=dotted];
+    };
+};
+subgraph cluster_86adaa49 {
+    label="File: watcher";
+    name="watcher";
+    style="filled";
+    graph[style=dotted];
+    subgraph cluster_1d099daa {
+        node_766e4e7d node_f8a207dc node_8e0ed9e9 node_135d5c02 node_496ebcdb node_fb61769c;
+        label="Class: QuestionWatcher";
+        name="QuestionWatcher";
+        style="filled";
+        graph[style=dotted];
+    };
+};
+}

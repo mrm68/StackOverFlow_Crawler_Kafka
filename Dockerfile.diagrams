@@ -1,23 +1,21 @@
-# Dockerfile.diagrams
-
 FROM python:3.9-slim
 
-# Install system dependency: graphviz (required by code2flow)
-RUN apt-get update && apt-get install -y graphviz && rm -rf /var/lib/apt/lists/*
+# Install system dependencies
+RUN apt-get update && \
+    apt-get install -y graphviz dos2unix && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Install code2flow via pip
+# Install code2flow
 RUN pip install --no-cache-dir code2flow
 
-# Copy the diagram generation script into the container
-COPY generate_diagrams.sh /app/generate_diagrams.sh
-
-# Copy the source code folder (adjust if your folder name changes)
+# Copy files
+COPY generate_diagrams.sh /app/
 COPY StackOverFlow_Crawler_Kafka/ /app/StackOverFlow_Crawler_Kafka/
 
-# Make sure the diagrams script is executable
-RUN chmod +x /app/generate_diagrams.sh
+# Set permissions and convert line endings
+RUN chmod +x /app/generate_diagrams.sh && \
+    dos2unix /app/generate_diagrams.sh
 
-# Set the entrypoint to run the diagram generation script
-ENTRYPOINT ["/app/generate_diagrams.sh"]
+ENTRYPOINT ["/bin/bash", "/app/generate_diagrams.sh"]

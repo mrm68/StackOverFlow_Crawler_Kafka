@@ -1,3 +1,4 @@
+# docker-compose.yml
 version: "3.8"
 
 services:
@@ -43,14 +44,6 @@ services:
       retries: 5
       start_period: 10s
 
-  dbgate:
-    image: dbgate/dbgate
-    ports:
-      - "3000:3000"
-    volumes:
-      - dbgate_data:/dbgate
-    depends_on:
-      - postgres
 
   crawler:
     build:
